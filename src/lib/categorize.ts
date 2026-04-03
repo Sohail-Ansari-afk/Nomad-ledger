@@ -1,6 +1,5 @@
 import Groq from 'groq-sdk'
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
 export const EXPENSE_CATEGORIES = [
   'Software subscription',
@@ -117,6 +116,7 @@ Reply ONLY with valid JSON, no markdown:
 Valid categories: ${EXPENSE_CATEGORIES.join(', ')}`
 
   try {
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
     const response = await groq.chat.completions.create({
       model:       'llama-3.1-8b-instant',
       max_tokens:  80,
