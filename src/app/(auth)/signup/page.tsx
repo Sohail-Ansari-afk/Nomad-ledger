@@ -7,8 +7,6 @@ import { createClient } from '@/lib/supabase/client'
 
 export default function SignupPage() {
   const router = useRouter()
-  const supabase = createClient()
-  
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,7 +18,7 @@ export default function SignupPage() {
     e.preventDefault()
     setLoading(true)
     setError(null)
-    
+    const supabase = createClient()
     // We pass full_name in metadata so the DB trigger can pick it up
     const { error } = await supabase.auth.signUp({
       email,
@@ -43,6 +41,7 @@ export default function SignupPage() {
   }
 
   const handleGoogleSignup = async () => {
+    const supabase = createClient()
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {

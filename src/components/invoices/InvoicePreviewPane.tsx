@@ -11,13 +11,11 @@ export function InvoicePreviewPane({
   countryCode,
   homeCurrency,
   displayHomeAmount,
-  attachedExpenses = [],
 }: {
   invoice: any
   countryCode: string
   homeCurrency?: string
   displayHomeAmount?: number | null
-  attachedExpenses?: any[]
 }) {
   const router = useRouter()
   const [isUpdating, setIsUpdating] = useState(false)
@@ -317,34 +315,7 @@ export function InvoicePreviewPane({
           </div>
         </div>
 
-        {/* ── ATTACHED EXPENSES (INTERNAL UI ONLY) ── */}
-        {attachedExpenses && attachedExpenses.length > 0 && (
-          <div style={{ marginTop: 24, background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 12, padding: 20 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>Attached Expenses</div>
-              <span style={{ background: 'var(--surface-3)', color: 'var(--ink-2)', borderRadius: 100, fontSize: 11, fontWeight: 600, padding: '2px 8px' }}>Internal</span>
-            </div>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {attachedExpenses.map((exp: any) => (
-                <div key={exp.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', background: 'var(--surface-2)', borderRadius: 8, border: '1px solid var(--border)' }}>
-                  <div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>{exp.description || 'Untitled'}</div>
-                    <div style={{ fontSize: 11, color: 'var(--ink-4)', marginTop: 2 }}>
-                      {exp.category} · {new Date(exp.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
-                    </div>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>
-                      {formatCurrency(exp.expense_amount, exp.expense_currency)}
-                    </div>
-                    {exp.deductible && <div style={{ fontSize: 10, color: 'var(--green)', marginTop: 2 }}>Tax Deductible</div>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+
       </div>
     </div>
   )

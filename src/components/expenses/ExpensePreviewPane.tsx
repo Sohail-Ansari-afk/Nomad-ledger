@@ -1,72 +1,17 @@
 'use client'
 
-import { useState, useTransition, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { formatCurrency } from '@/lib/formatCurrency'
-import { linkExpenseToInvoice, unlinkExpenseFromInvoice, deleteExpense } from '@/app/(app)/invoices/expense-actions'
-
+import { deleteExpense } from '@/app/(app)/invoices/expense-actions'
 import Link from 'next/link'
-
-interface LinkedInvoice {
-  id: string
-  invoice_number: string
-  invoice_date: string
-  status: string
-  client?: { name: string }
-}
 
 export function ExpensePreviewPane({
   expense,
   countryCode,
-  linkedInvoices = [],
-  allInvoices = [],
 }: {
   expense: any
   countryCode: string
-  linkedInvoices?: LinkedInvoice[]
-  allInvoices?: LinkedInvoice[]
 }) {
-  const [isPending, startTransition] = useTransition()
-  const [selectedInvoiceId, setSelectedInvoiceId] = useState('')
-  const [localLinked, setLocalLinked] = useState<LinkedInvoice[]>(linkedInvoices)
-
-  // Keep state in sync if server sends updated linkedInvoices (after navigation)
-  useEffect(() => {
-    setLocalLinked(linkedInvoices)
-  }, [expense?.id, linkedInvoices])
-
-  const linkedIds = new Set(localLinked.map(i => i.id))
-
-  const handleLink = () => {
-    if (!selectedInvoiceId || linkedIds.has(selectedInvoiceId)) return
-    const toLink = allInvoices.find(i => i.id === selectedInvoiceId)
-    if (!toLink) return
-
-    setLocalLinked(prev => [...prev, toLink])
-    setSelectedInvoiceId('')
-
-    startTransition(async () => {
-      try {
-        await linkExpenseToInvoice(expense.id, selectedInvoiceId)
-      } catch {
-        setLocalLinked(prev => prev.filter(i => i.id !== selectedInvoiceId))
-      }
-    })
-  }
-
-  const handleUnlink = (invoiceId: string) => {
-    setLocalLinked(prev => prev.filter(i => i.id !== invoiceId))
-
-    startTransition(async () => {
-      try {
-        await unlinkExpenseFromInvoice(expense.id, invoiceId)
-      } catch {
-        const toRestore = allInvoices.find(i => i.id === invoiceId)
-        if (toRestore) setLocalLinked(prev => [...prev, toRestore])
-      }
-    })
-  }
-  
   const router = useRouter()
   const handleDelete = async () => {
     if (confirm('Are you sure you want to delete this expense? This action cannot be undone.')) {
@@ -90,12 +35,6 @@ export function ExpensePreviewPane({
       </div>
     )
   }
-
-  // Invoices not yet linked (for the dropdown)
-  const unlinkableInvoices = allInvoices.filter(i => !linkedIds.has(i.id))
-
-  const statusColor = (s: string) =>
-    s === 'paid' ? 'var(--green)' : s === 'overdue' ? 'var(--red)' : s === 'sent' ? 'var(--blue)' : 'var(--ink-4)'
 
   return (
     <div key={expense.id} className="split-preview animate-fade-in">
@@ -162,98 +101,7 @@ export function ExpensePreviewPane({
           </div>
         </div>
 
-        {/* ── INVOICE ASSIGNMENT CARD ── */}
-        <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 12, padding: 20 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
-            <div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>Linked Invoices</div>
-              <div style={{ fontSize: 12, color: 'var(--ink-4)', marginTop: 2 }}>
-                This expense can appear on multiple invoices — great for recurring subscriptions.
-              </div>
-            </div>
-            {localLinked.length > 0 && (
-              <span style={{ background: 'var(--blue)', color: '#fff', borderRadius: 100, fontSize: 11, fontWeight: 700, padding: '2px 10px' }}>
-                {localLinked.length}
-              </span>
-            )}
-          </div>
 
-          {/* Currently linked invoices */}
-          {localLinked.length > 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16 }}>
-              {localLinked.map(inv => (
-                <div
-                  key={inv.id}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px',
-                    background: 'var(--surface-2)', borderRadius: 8, border: '1px solid var(--border)',
-                  }}
-                >
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>
-                      {inv.invoice_number}
-                      {inv.client?.name && <span style={{ fontWeight: 400, color: 'var(--ink-4)', marginLeft: 6 }}>· {inv.client.name}</span>}
-                    </div>
-                    <div style={{ fontSize: 11, color: 'var(--ink-4)', marginTop: 2 }}>
-                      {new Date(inv.invoice_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
-                    </div>
-                  </div>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: statusColor(inv.status), textTransform: 'uppercase', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 6, padding: '2px 8px' }}>
-                    {inv.status}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => handleUnlink(inv.id)}
-                    disabled={isPending}
-                    title="Remove from this invoice"
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ink-4)', padding: '2px 4px', borderRadius: 4, display: 'flex', alignItems: 'center' }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                  </button>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div style={{ textAlign: 'center', padding: '14px', color: 'var(--ink-4)', fontSize: 13, background: 'var(--surface-2)', borderRadius: 8, marginBottom: 16 }}>
-              Not linked to any invoice yet
-            </div>
-          )}
-
-          {/* Add to invoice row */}
-          {unlinkableInvoices.length > 0 ? (
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <select
-                value={selectedInvoiceId}
-                onChange={e => setSelectedInvoiceId(e.target.value)}
-                className="form-select"
-                style={{ flex: 1, fontSize: 13, padding: '8px 12px' }}
-              >
-                <option value="">Add to an invoice...</option>
-                {unlinkableInvoices.map(inv => (
-                  <option key={inv.id} value={inv.id}>
-                    {inv.invoice_number} – {inv.client?.name ?? ''}
-                    {' '}({new Date(inv.invoice_date).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })})
-                  </option>
-                ))}
-              </select>
-              <button
-                type="button"
-                onClick={handleLink}
-                disabled={!selectedInvoiceId || isPending}
-                className="btn btn-primary btn-sm"
-                style={{ whiteSpace: 'nowrap' }}
-              >
-                {isPending ? '...' : '+ Link'}
-              </button>
-            </div>
-          ) : allInvoices.length === 0 ? (
-            <p style={{ fontSize: 12, color: 'var(--ink-4)', textAlign: 'center' }}>No invoices found. Create an invoice first.</p>
-          ) : (
-            <p style={{ fontSize: 12, color: 'var(--ink-4)', textAlign: 'center' }}>✓ Linked to all available invoices</p>
-          )}
-        </div>
       </div>
     </div>
   )

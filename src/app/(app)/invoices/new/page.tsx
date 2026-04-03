@@ -21,11 +21,7 @@ export default async function NewInvoicePage() {
     .eq('id', user.id)
     .single()
 
-  // Fetch expenses for the optional attachment section
-  const { data: expenses } = await supabase
-    .from('expenses')
-    .select('id, description, category, expense_amount, expense_currency, date')
-    .order('date', { ascending: false })
+
 
   return (
     <>
@@ -42,7 +38,6 @@ export default async function NewInvoicePage() {
               <InvoiceForm
                 clients={clients || []}
                 homeCurrency={profile?.home_currency || 'INR'}
-                expenses={expenses || []}
               />
             </div>
           </div>

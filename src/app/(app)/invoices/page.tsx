@@ -65,8 +65,6 @@ export default async function InvoicesPage(props: {
   // Determine active invoice
   const activeId = searchParams.id
   let activeInvoice = null
-  let attachedExpenses: any[] = []
-
   if (activeId && invoices) {
     const { data: detailData } = await supabase
       .from('invoices')
@@ -75,14 +73,6 @@ export default async function InvoicesPage(props: {
       .single()
 
     activeInvoice = detailData
-
-    // Fetch expenses attached to this invoice via junction table
-    const { data: expLinks } = await supabase
-      .from('invoice_expenses')
-      .select('expense_id, expense:expense_id(id, description, category, expense_amount, expense_currency, deductible, date)')
-      .eq('invoice_id', activeId)
-
-    attachedExpenses = (expLinks ?? []).map((l: any) => l.expense).filter(Boolean)
   }
 
 
@@ -187,7 +177,6 @@ export default async function InvoicesPage(props: {
         countryCode={homeCountry}
         homeCurrency={homeCurrency}
         displayHomeAmount={activeInvoice?.id ? displayHomeMap.get(activeInvoice.id) ?? null : null}
-        attachedExpenses={attachedExpenses}
       />
     </div>
   )

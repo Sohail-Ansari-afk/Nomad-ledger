@@ -27,27 +27,9 @@ export default async function ExpensesPage(props: { searchParams: Promise<{ id?:
     .order('date', { ascending: false })
 
   let activeExpense = null
-  let linkedInvoices: any[] = []
-  let allInvoices: any[] = []
 
   if (activeId && expenses) {
     activeExpense = expenses.find((e: any) => e.id === activeId) ?? null
-
-    // Fetch which invoices this expense is already linked to
-    const { data: links } = await supabase
-      .from('invoice_expenses')
-      .select('invoice_id, invoice:invoice_id(id, invoice_number, invoice_date, status, client:client_id(name))')
-      .eq('expense_id', activeId)
-
-    linkedInvoices = (links ?? []).map((l: any) => l.invoice).filter(Boolean)
-
-    // Fetch all invoices for the "add to invoice" dropdown
-    const { data: inv } = await supabase
-      .from('invoices')
-      .select('id, invoice_number, invoice_date, status, client:client_id(name)')
-      .order('created_at', { ascending: false })
-
-    allInvoices = inv ?? []
   }
 
   if (!activeId) {
@@ -138,8 +120,6 @@ export default async function ExpensesPage(props: { searchParams: Promise<{ id?:
       <ExpensePreviewPane
         expense={activeExpense}
         countryCode={homeCountry}
-        linkedInvoices={linkedInvoices}
-        allInvoices={allInvoices}
       />
     </div>
   )

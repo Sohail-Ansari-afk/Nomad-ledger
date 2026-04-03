@@ -16,13 +16,11 @@ export default async function EditInvoicePage(props: { params: Promise<{ id: str
     .eq('id', user.id)
     .single()
 
-  const [{ data: clients }, { data: expenses }, { data: invoice }] = await Promise.all([
+  const [{ data: clients }, { data: invoice }] = await Promise.all([
     supabase.from('clients').select('id, name, currency, default_rate').eq('user_id', user.id).order('name'),
-    supabase.from('expenses').select('id, description, category, expense_amount, expense_currency, date').eq('user_id', user.id).order('date', { ascending: false }),
     supabase.from('invoices').select(`
       *,
-      items:invoice_items(*),
-      attached_expenses:invoice_expenses(expense_id)
+      items:invoice_items(*)
     `).eq('id', invoiceId).eq('user_id', user.id).single()
   ])
 
@@ -45,7 +43,6 @@ export default async function EditInvoicePage(props: { params: Promise<{ id: str
               <InvoiceForm 
                 clients={clients || []} 
                 homeCurrency={profile?.home_currency || 'USD'}
-                expenses={expenses || []}
                 initialData={invoice}
               />
             </div>
