@@ -36,6 +36,9 @@ yarn-error.log*
 .env.development
 # .env.production is intentionally committed (only contains NEXT_PUBLIC_* vars)
 
+# Cloudflare local dev secrets (contains API keys — NEVER commit)
+.dev.vars
+
 # vercel
 .vercel
 

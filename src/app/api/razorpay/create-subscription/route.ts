@@ -2,10 +2,18 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
 // ─── Razorpay REST helper (no SDK — Cloudflare edge compatible) ──────────────
+// NOTE: btoa() is used instead of Buffer.from().toString('base64') because
+// Buffer is a Node.js API not available in Cloudflare Workers edge runtime.
 function razorpayFetch(path: string, body: object) {
-  const keyId = process.env.RAZORPAY_KEY_ID?.trim() || ''
-  const secret = process.env.RAZORPAY_KEY_SECRET?.trim() || ''
-  const auth = Buffer.from(`${keyId}:${secret}`).toString('base64')
+  // Fallback: RAZORPAY_KEY_ID may be missing but NEXT_PUBLIC_RAZORPAY_KEY_ID is always set
+  const keyId = (
+    process.env.RAZORPAY_KEY_ID ||
+    process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ||
+    ''
+  ).trim()
+  const secret = (process.env.RAZORPAY_KEY_SECRET || '').trim()
+  // btoa() is available in all runtimes (Browser, Cloudflare Workers, Edge)
+  const auth = btoa(`${keyId}:${secret}`)
 
   return fetch(`https://api.razorpay.com/v1${path}`, {
     method: 'POST',
