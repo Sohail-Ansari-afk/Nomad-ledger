@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import ClientsPageClient from './ClientsPageClient'
+import ClientRowActions from './ClientRowActions'
 
 export default async function ClientsPage() {
   const supabase = await createClient()
@@ -63,6 +64,7 @@ export default async function ClientsPage() {
                     <th>Email</th>
                     <th>Currency</th>
                     <th>Added</th>
+                    <th style={{ textAlign: 'right' }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -72,6 +74,9 @@ export default async function ClientsPage() {
                       <td>{c.email || '—'}</td>
                       <td>{c.currency}</td>
                       <td>{new Date(c.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+                      <td>
+                        <ClientRowActions clientId={c.id} clientName={c.name} />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
