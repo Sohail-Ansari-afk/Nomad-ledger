@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
     const subscriptionId = profile.razorpay_sub_id
 
     // 3. Cancel at Razorpay (cancel_at_cycle_end=1 → cancel after current period)
-    const keyId = process.env.RAZORPAY_KEY_ID!
-    const secret = process.env.RAZORPAY_KEY_SECRET!
+    const keyId = process.env.RAZORPAY_KEY_ID?.trim() || ''
+    const secret = process.env.RAZORPAY_KEY_SECRET?.trim() || ''
     const auth = Buffer.from(`${keyId}:${secret}`).toString('base64')
 
     const res = await fetch(

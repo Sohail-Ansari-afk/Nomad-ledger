@@ -3,8 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 
 // ─── Razorpay REST helper (no SDK — Cloudflare edge compatible) ──────────────
 function razorpayFetch(path: string, body: object) {
-  const keyId = process.env.RAZORPAY_KEY_ID!
-  const secret = process.env.RAZORPAY_KEY_SECRET!
+  const keyId = process.env.RAZORPAY_KEY_ID?.trim() || ''
+  const secret = process.env.RAZORPAY_KEY_SECRET?.trim() || ''
   const auth = Buffer.from(`${keyId}:${secret}`).toString('base64')
 
   return fetch(`https://api.razorpay.com/v1${path}`, {

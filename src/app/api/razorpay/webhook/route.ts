@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
   // 1. Read raw body BEFORE parsing (required for correct HMAC verification)
   const rawBody = await request.text()
   const signature = request.headers.get('x-razorpay-signature') ?? ''
-  const secret = process.env.RAZORPAY_WEBHOOK_SECRET ?? ''
+  const secret = (process.env.RAZORPAY_WEBHOOK_SECRET ?? '').trim()
 
   // 2. Validate signature
   if (!secret || secret === 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx') {

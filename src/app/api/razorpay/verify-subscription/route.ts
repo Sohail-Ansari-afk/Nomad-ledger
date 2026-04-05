@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     // 2. Verify signature
-    const secret = process.env.RAZORPAY_KEY_SECRET!
+    const secret = process.env.RAZORPAY_KEY_SECRET?.trim() || ''
     const isValid = await verifyPaymentSignature(
       razorpay_payment_id,
       razorpay_subscription_id,
