@@ -74,12 +74,7 @@ body {
   grid-template-rows: 100vh;
   height: 100vh;
   overflow: hidden;
-  background: var(--surface-2);
-}
-
-/* Mobile header — hidden on desktop */
-.mobile-header {
-  display: none;
+  background: var(--surface-2); /* The actual page background */
 }
 
 /* ─── SIDEBAR (Glass implementation) ───────────────────────────────────── */
@@ -348,205 +343,16 @@ body {
 .section-body     { font-size: 15px; color: var(--ink-3); line-height: 1.6; margin-bottom: 24px; }
 
 /* ─── MOBILE RESPONSIVE ────────────────────────────────────────────────── */
-
-/* ── Hamburger button ───────────────────────────────────────────────────── */
-.mobile-hamburger {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  transition: background var(--transition);
-  flex-shrink: 0;
-}
-.mobile-hamburger:hover { background: var(--surface-3); }
-.hamburger-bar {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: var(--ink);
-  border-radius: 2px;
-  transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-/* ── Backdrop overlay ───────────────────────────────────────────────────── */
-.mobile-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: 90;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-.mobile-overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
-
-/* ── Slide-in drawer ────────────────────────────────────────────────────── */
-.mobile-drawer {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: min(300px, 85vw);
-  background: var(--surface);
-  box-shadow: var(--shadow-lg);
-  z-index: 100;
-  flex-direction: column;
-  transform: translateX(-100%);
-  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
-  overflow: hidden;
-}
-.mobile-drawer.open  { transform: translateX(0); }
-
-.mobile-drawer-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 16px 16px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  flex-shrink: 0;
-}
-.mobile-drawer-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.mobile-drawer-close {
-  width: 32px; height: 32px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--surface-2);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  color: var(--ink-2);
-  transition: background var(--transition);
-  flex-shrink: 0;
-}
-.mobile-drawer-close:hover { background: var(--surface-3); }
-
-.mobile-drawer-scroll {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px 12px;
-  -webkit-overflow-scrolling: touch;
-}
-.mobile-drawer-scroll::-webkit-scrollbar { display: none; }
-
-/* Nav items in the drawer are full-width rows */
-.mobile-drawer .nav-item {
-  padding: 12px 16px;
-  font-size: 15px;
-  border-radius: 12px;
-  margin-bottom: 4px;
-  gap: 14px;
-}
-.mobile-drawer .nav-icon {
-  width: 20px;
-  height: 20px;
-}
-
-.mobile-drawer-footer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  border-top: 1px solid var(--border);
-  background: var(--surface);
-  flex-shrink: 0;
-  padding-bottom: calc(16px + env(safe-area-inset-bottom));
-}
-
 @media (max-width: 768px) {
-  /* Shell: stack vertically — mobile-header on top, main below */
-  .shell {
-    grid-template-columns: 1fr;
-    grid-template-rows: 56px 1fr;
-    height: 100dvh;
-    height: 100vh;
-    overflow: hidden;
-  }
-
-  /* Hide the desktop sidebar */
-  .sidebar { display: none; }
-
-  /* Show mobile header */
-  .mobile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
-    height: 56px;
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    flex-shrink: 0;
-    /* span both columns so it's always full-width */
-    grid-column: 1 / -1;
-    grid-row: 1;
-  }
-  .mobile-header-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  /* Show hamburger & drawer elements */
-  .mobile-hamburger { display: flex; }
-  .mobile-overlay   { display: block; }
-  .mobile-drawer    { display: flex; }
-
-  /* Main area takes remaining height */
-  .main {
-    grid-column: 1;
-    grid-row: 2;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
-  }
-
-  .topbar  { padding: 0 16px; height: 52px; }
-  .canvas  { padding: 16px; flex-direction: column; gap: 16px; }
+  .shell { grid-template-columns: 1fr; grid-template-rows: 1fr auto; background: var(--surface); }
+  .sidebar { height: auto; width: 100%; flex-direction: row; overflow-x: auto; order: 2; border-right: none; border-top: 1px solid var(--sidebar-border); padding-bottom: env(safe-area-inset-bottom); }
+  .sidebar-brand { display: none; }
+  .sidebar-scroll { flex-direction: row; padding: 8px; display: flex; justify-content: space-around; white-space: nowrap; }
+  .nav-item { border-radius: 8px; flex-direction: column; padding: 8px 12px; font-size: 11px; gap: 4px; margin:0; }
+  .sidebar-bottom { display: none; }
+  .topbar { padding: 0 20px; }
+  .canvas { padding: 20px; flex-direction: column; }
   .canvas-right { width: 100%; }
-  .canvas-left  { max-width: 100%; }
-  .canvas-full  { max-width: 100%; }
-
-  .metrics-grid { grid-template-columns: 1fr 1fr; }
-  .form-row     { grid-template-columns: 1fr; }
-
-  /* Split layout on mobile: single column */
-  .split-layout { flex-direction: column; }
-  .split-list   { width: 100%; max-height: 45vh; flex-shrink: 0; }
-  .split-preview-scroll { padding: 16px; }
-  .a4-paper { width: 100%; min-height: auto; padding: 12mm; }
-}
-
-/* Tablet tweaks */
-@media (min-width: 769px) and (max-width: 1100px) {
-  .shell { grid-template-columns: 200px 1fr; }
-  .canvas { padding: 24px; }
-  .canvas-left { max-width: 100%; }
-  .canvas-right { width: 280px; }
 }
 
 /* ─── SPLIT LAYOUT (Master-Detail) ─────────────────────────────────────── */

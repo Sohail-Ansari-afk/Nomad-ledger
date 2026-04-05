@@ -1,13 +1,25 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
+import ClientsPageClient from './ClientsPageClient'
 
 export default async function ClientsPage() {
   const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('plan, full_name')
+    .eq('id', user!.id)
+    .single()
 
   const { data: clients } = await supabase
     .from('clients')
     .select('*')
     .order('name', { ascending: true })
+
+  const clientCount = clients?.length ?? 0
+  const isPro = profile?.plan === 'pro'
+  const atLimit = !isPro && clientCount >= 3
 
   return (
     <>
@@ -15,11 +27,28 @@ export default async function ClientsPage() {
         <div>
           <h2 className="section-heading" style={{ fontSize: 18, margin: 0 }}>Clients</h2>
         </div>
-        <div>
-          <Link href="/clients/new" className="btn btn-primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            Add Client
-          </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {/* Usage badge for free users */}
+          {!isPro && (
+            <div style={{
+              fontSize: 12,
+              background: atLimit ? 'var(--red-light)' : 'var(--surface-2)',
+              color: atLimit ? 'var(--red)' : 'var(--ink-4)',
+              border: `1px solid ${atLimit ? 'var(--red)' : 'var(--border)'}`,
+              borderRadius: 20,
+              padding: '4px 12px',
+              fontWeight: 500,
+            }}>
+              {clientCount}/3 free clients used
+            </div>
+          )}
+          {/* Add Client button — gated for free users at limit */}
+          <ClientsPageClient
+            isPro={isPro}
+            atLimit={atLimit}
+            userEmail={user?.email}
+            userName={profile?.full_name}
+          />
         </div>
       </div>
 
@@ -59,7 +88,13 @@ export default async function ClientsPage() {
                 </div>
                 <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>No clients yet</h3>
                 <p style={{ color: 'var(--ink-4)', marginBottom: 24, fontSize: 13 }}>Add your first client to start creating invoices.</p>
-                <Link href="/clients/new" className="btn btn-primary">Add Client</Link>
+                <ClientsPageClient
+                  isPro={isPro}
+                  atLimit={atLimit}
+                  userEmail={user?.email}
+                  userName={profile?.full_name}
+                  variant="primary"
+                />
               </div>
             )}
           </div>

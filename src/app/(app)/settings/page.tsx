@@ -28,7 +28,7 @@ export default async function SettingsPage() {
 
       <div className="canvas">
         <div className="canvas-full" style={{ maxWidth: 640 }}>
-          <SettingsForm profile={profile} />
+          <SettingsForm profile={profile} userEmail={user.email} />
         </div>
       </div>
     </>
