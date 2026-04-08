@@ -14,18 +14,39 @@ export const viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'NomadLedger — Multi-currency finance for freelancers',
+    default: 'NomadLedger | Multi-Currency Finance & Tax Tool for Freelancers',
     template: '%s | NomadLedger',
   },
   description:
-    'Invoice clients in any currency, lock exchange rates, track expenses, and estimate taxes — built for digital nomads and global freelancers.',
-  keywords: ['freelancer finance', 'multi-currency invoicing', 'digital nomad', 'tax estimation', 'invoice tool'],
+    'Stop losing money to exchange rates. NomadLedger automates currency conversion and tax estimates for digital nomads managing multiple international clients.',
+  keywords: [
+    'multi-currency finance tool',
+    'digital nomad finance',
+    'freelancer tax estimates',
+    'USD EUR GBP conversion',
+    'international client dashboard',
+    'home-country tax estimation',
+    'multi-currency invoicing',
+    'digital nomad tax tool',
+    'freelancer invoice tool',
+    'exchange rate lock',
+    'cross-border freelance payments',
+    'real-time currency conversion',
+  ],
   authors: [{ name: 'NomadLedger' }],
   openGraph: {
-    title: 'NomadLedger — Multi-currency finance for freelancers',
-    description: 'Invoice clients in any currency, lock exchange rates, track expenses, and estimate taxes.',
+    title: 'NomadLedger | Multi-Currency Finance & Tax Tool for Freelancers',
+    description:
+      'Stop losing money to exchange rates. NomadLedger automates currency conversion and tax estimates for digital nomads managing multiple international clients.',
     type: 'website',
     url: process.env.NEXT_PUBLIC_APP_URL,
+    siteName: 'NomadLedger',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NomadLedger | Multi-Currency Finance & Tax Tool for Freelancers',
+    description:
+      'Stop losing money to exchange rates. NomadLedger automates currency conversion and tax estimates for digital nomads managing multiple international clients.',
   },
   manifest: '/manifest.json',
 }

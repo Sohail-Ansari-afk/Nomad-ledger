@@ -1,14 +1,72 @@
 import Link from 'next/link'
+import Script from 'next/script'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'NomadLedger — Multi-currency finance for freelancers',
-  description: 'Invoice clients in USD, EUR & GBP. Lock exchange rates. Track expenses. Estimate taxes.',
+  title: 'NomadLedger | Multi-Currency Finance & Tax Tool for Freelancers',
+  description:
+    'Stop losing money to exchange rates. NomadLedger automates currency conversion and tax estimates for digital nomads managing multiple international clients.',
 }
 
 export default function LandingPage() {
   return (
     <>
+      <Script
+        id="schema-software-app"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "NomadLedger",
+            "url": "https://nomadledger.online",
+            "description": "Multi-currency invoicing and tax estimation tool for digital nomads. Invoice clients in GBP, EUR, USD — see everything in your home currency at the exact rate it was earned.",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web, iOS, Android",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "priceSpecification": [
+                {
+                  "@type": "UnitPriceSpecification",
+                  "price": "0",
+                  "priceCurrency": "USD",
+                  "name": "Free Plan",
+                  "description": "5 invoices/month, FX rate lock, basic tax estimate"
+                },
+                {
+                  "@type": "UnitPriceSpecification",
+                  "price": "19",
+                  "priceCurrency": "USD",
+                  "unitText": "MONTH",
+                  "name": "Pro Plan",
+                  "description": "Unlimited invoices, Razorpay payment links, 12 tax jurisdictions"
+                }
+              ]
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "12"
+            },
+            "creator": {
+              "@type": "Person",
+              "name": "Sohail Ansari"
+            },
+            "featureList": [
+              "Multi-currency invoicing",
+              "FX rate locking at invoice date",
+              "Progressive tax bracket breakdown",
+              "12 tax jurisdictions",
+              "Razorpay payment links",
+              "Deductible expense tracking"
+            ],
+            "screenshot": "https://nomadledger.online/og-image.png",
+            "softwareVersion": "1.0"
+          })
+        }}
+      />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 
@@ -343,6 +401,31 @@ export default function LandingPage() {
         .lp-footer-logo em { color: #4fa3e8; font-style: italic; }
         .lp-footer-copy { font-size: 12px; color: #3d5a6e; }
 
+        /* SEO FEATURE SECTIONS */
+        .lp-feat-section { margin-bottom: 80px; }
+        .lp-feat-section:last-child { margin-bottom: 0; }
+        .lp-feat-section-header {
+          display: flex; align-items: flex-start; gap: 20px;
+          margin-bottom: 28px; padding-bottom: 24px;
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .lp-feat-section-icon {
+          width: 52px; height: 52px; border-radius: 16px; flex-shrink: 0;
+          display: flex; align-items: center; justify-content: center; font-size: 24px;
+          background: rgba(79,163,232,0.1); border: 1px solid rgba(79,163,232,0.2);
+        }
+        .lp-feat-section-h2 {
+          font-family: 'Instrument Serif', Georgia, serif;
+          font-size: clamp(24px, 3.5vw, 36px);
+          font-weight: 400; line-height: 1.1; letter-spacing: -0.02em;
+          color: #f0f4f8; margin: 0 0 8px;
+        }
+        .lp-feat-section-h2 em { font-style: italic; color: #7ec8fc; }
+        .lp-feat-section-desc { font-size: 14px; color: #5a7a91; line-height: 1.7; max-width: 600px; }
+        .lp-feat-cards-row {
+          display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 900px) {
           .lp-pain-grid { grid-template-columns: 1fr; }
@@ -377,9 +460,9 @@ export default function LandingPage() {
             Multi-currency freelance finance
           </p>
           <h1 className="lp-h1">
-            Your income in<br />
-            <span className="accent">every currency,</span><br />
-            <span className="dim">one clear number.</span>
+            Multi-Currency Finance Tool for{' '}
+            <span className="accent">Digital Nomads</span>
+            {' '}& <span className="dim">Freelancers</span>
           </h1>
           <p className="lp-sub">
             Invoice clients in GBP, EUR, USD. See everything converted to your home currency — at the exact rate it was earned.
@@ -485,23 +568,79 @@ export default function LandingPage() {
         <section className="lp-features" id="features">
           <div className="lp-section-inner">
             <div className="lp-label">Everything you need</div>
-            <h2 className="lp-h2">Built for the way<br />nomads actually work.</h2>
-            <div className="lp-feat-grid">
-              {[
-                { icon: '🔒', title: 'Multi-currency invoicing', desc: 'Send invoices in USD, EUR, GBP. The exchange rate locks at invoice date — your books stay accurate forever.' },
-                { icon: '⚡', title: 'Online payments', desc: 'Clients pay instantly via UPI, cards, or net banking through Razorpay. Payment links included with every invoice.' },
-                { icon: '🧮', title: 'Tax estimation', desc: 'Real progressive bracket breakdown for 12 countries. Know your quarterly advance tax before the deadline.' },
-                { icon: '📋', title: 'Expense tracking', desc: 'Log business expenses in any currency. AI auto-categorizes them. Deductibles tracked for tax season.' },
-                { icon: '📄', title: 'Professional PDF invoices', desc: 'Beautiful PDF invoices with rate, currency breakdown, and payment link baked in — one click.' },
-                { icon: '📈', title: 'P&L reports', desc: 'Income by currency, average exchange rates, net profit — all in your home currency, every quarter.' },
-              ].map(f => (
-                <div key={f.title} className="lp-feat-card">
-                  <div className="lp-feat-icon" style={{ fontSize: 20 }}>{f.icon}</div>
-                  <h3>{f.title}</h3>
-                  <p>{f.desc}</p>
+
+            {/* SEO FEATURE SECTION 1 — H2: Automated USD, EUR, and GBP Conversion */}
+            <div className="lp-feat-section">
+              <div className="lp-feat-section-header">
+                <div className="lp-feat-section-icon">💱</div>
+                <div>
+                  <h2 className="lp-feat-section-h2">Automated <em>USD, EUR, and GBP</em> Conversion</h2>
+                  <p className="lp-feat-section-desc">Every invoice locks the exchange rate at the moment it's sent — no manual calculations, no surprise fluctuations in your annual report.</p>
                 </div>
-              ))}
+              </div>
+              <div className="lp-feat-cards-row">
+                {[
+                  { icon: '🔒', title: 'Rate locked at invoice date', desc: 'Send invoices in USD, EUR, GBP. The rate is captured at creation and never recalculated — your books stay accurate forever.' },
+                  { icon: '📊', title: 'Real-time conversion display', desc: 'See live home-currency equivalents for every client balance — updated each session from ECB historical rates.' },
+                  { icon: '📈', title: 'P&L in your currency', desc: 'All income, from every currency, normalized into your home currency for quarterly and annual reporting.' },
+                ].map(f => (
+                  <div key={f.title} className="lp-feat-card">
+                    <div className="lp-feat-icon" style={{ fontSize: 20 }}>{f.icon}</div>
+                    <h3>{f.title}</h3>
+                    <p>{f.desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+
+            {/* SEO FEATURE SECTION 2 — H2: Real-time Home-Country Tax Estimates */}
+            <div className="lp-feat-section">
+              <div className="lp-feat-section-header">
+                <div className="lp-feat-section-icon">🧮</div>
+                <div>
+                  <h2 className="lp-feat-section-h2"><em>Real-time</em> Home-Country Tax Estimates</h2>
+                  <p className="lp-feat-section-desc">Progressive tax brackets for 12 countries, calculated live as you earn — so you're never surprised at year-end.</p>
+                </div>
+              </div>
+              <div className="lp-feat-cards-row">
+                {[
+                  { icon: '🏦', title: 'Progressive bracket breakdown', desc: 'Real bracket-by-bracket tax calculation for India, UK, US, Germany, and 8 more countries.' },
+                  { icon: '📋', title: 'Deductible expense tracking', desc: 'Log business expenses in any currency. AI auto-categorizes them. Deductibles reduce your taxable income automatically.' },
+                  { icon: '⏰', title: 'Quarterly advance tax alerts', desc: 'Know your advance tax liability before the deadline — broken down by quarter, no accountant required.' },
+                ].map(f => (
+                  <div key={f.title} className="lp-feat-card">
+                    <div className="lp-feat-icon" style={{ fontSize: 20 }}>{f.icon}</div>
+                    <h3>{f.title}</h3>
+                    <p>{f.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* SEO FEATURE SECTION 3 — H2: Manage 6+ International Clients in One Dashboard */}
+            <div className="lp-feat-section">
+              <div className="lp-feat-section-header">
+                <div className="lp-feat-section-icon">🌍</div>
+                <div>
+                  <h2 className="lp-feat-section-h2">Manage <em>6+ International Clients</em> in One Dashboard</h2>
+                  <p className="lp-feat-section-desc">Stop juggling spreadsheets and browser tabs. Every client, invoice, and currency lives in a single, beautiful workspace.</p>
+                </div>
+              </div>
+              <div className="lp-feat-cards-row">
+                {[
+                  { icon: '⚡', title: 'Online payments via Razorpay', desc: 'Clients pay instantly via UPI, cards, or net banking. Payment links are embedded in every invoice automatically.' },
+                  { icon: '📄', title: 'Professional PDF invoices', desc: 'Beautiful PDF invoices with rate, currency breakdown, and payment link baked in — one click.' },
+                  { icon: '👥', title: 'Multi-client overview', desc: 'Total earned per client, outstanding balances, and overdue alerts — all visible at a glance across 6, 10, or 20 clients.' },
+                ].map(f => (
+                  <div key={f.title} className="lp-feat-card">
+                    <div className="lp-feat-icon" style={{ fontSize: 20 }}>{f.icon}</div>
+                    <h3>{f.title}</h3>
+                    <p>{f.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </section>
 
