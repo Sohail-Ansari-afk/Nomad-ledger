@@ -74,4 +74,26 @@
     <priority>0.4</priority>
   </url>
 
+  <!-- SEO Tools — public, no auth required -->
+  <url>
+    <loc>https://nomadledger.online/tax-calculator</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://nomadledger.online/fx-history</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://nomadledger.online/invoice-converter</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

@@ -15,39 +15,39 @@ export const viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'NomadLedger | Multi-Currency Finance & Tax Tool for Freelancers',
+    default: 'NomadLedger — Invoicing Software for Digital Nomads | Multi-Currency Invoice App',
     template: '%s | NomadLedger',
   },
   description:
-    'Stop losing money to exchange rates. NomadLedger automates currency conversion and tax estimates for digital nomads managing multiple international clients.',
+    'Invoice clients in GBP, EUR, USD from India. NomadLedger locks your exchange rate at invoice date — no more fluctuating income. Free tax estimate for 12 countries. Start free, no card needed.',
   keywords: [
-    'multi-currency finance tool',
-    'digital nomad finance',
-    'freelancer tax estimates',
-    'USD EUR GBP conversion',
-    'international client dashboard',
-    'home-country tax estimation',
+    'invoicing software for digital nomads',
+    'multi-currency invoice app for freelancers',
+    'freelancer tax calculator India',
+    'how to lock exchange rate on invoice',
+    'invoice in GBP USD EUR home currency India',
+    'freelance income tracker multiple currencies',
+    'Razorpay invoice generator freelancer',
+    'digital nomad tax estimate tool',
+    'send-date FX locking',
     'multi-currency invoicing',
-    'digital nomad tax tool',
-    'freelancer invoice tool',
-    'exchange rate lock',
-    'cross-border freelance payments',
-    'real-time currency conversion',
+    'exchange rate lock at invoice date',
+    'cross-border freelance payments India',
   ],
   authors: [{ name: 'NomadLedger' }],
   openGraph: {
-    title: 'NomadLedger | Multi-Currency Finance & Tax Tool for Freelancers',
+    title: 'NomadLedger — Invoicing Software for Digital Nomads | Multi-Currency Invoice App',
     description:
-      'Stop losing money to exchange rates. NomadLedger automates currency conversion and tax estimates for digital nomads managing multiple international clients.',
+      'Invoice clients in GBP, EUR, USD from India. NomadLedger locks your exchange rate at invoice date — no more fluctuating income. Free tax estimate for 12 countries.',
     type: 'website',
     url: process.env.NEXT_PUBLIC_APP_URL,
     siteName: 'NomadLedger',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NomadLedger | Multi-Currency Finance & Tax Tool for Freelancers',
+    title: 'NomadLedger — Invoicing Software for Digital Nomads | Multi-Currency Invoice App',
     description:
-      'Stop losing money to exchange rates. NomadLedger automates currency conversion and tax estimates for digital nomads managing multiple international clients.',
+      'Invoice clients in GBP, EUR, USD from India. NomadLedger locks your exchange rate at invoice date — no more fluctuating income. Free tax estimate for 12 countries.',
   },
   manifest: '/manifest.json',
 }

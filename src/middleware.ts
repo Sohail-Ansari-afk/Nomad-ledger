@@ -10,7 +10,10 @@ export async function middleware(request: NextRequest) {
     path.startsWith('/login') ||
     path.startsWith('/signup') ||
     path.startsWith('/api') ||
-    path.startsWith('/auth')
+    path.startsWith('/auth') ||
+    path.startsWith('/tax-calculator') ||
+    path.startsWith('/fx-history') ||
+    path.startsWith('/invoice-converter')
 
   // Skip middleware if Supabase env vars are not configured yet
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL

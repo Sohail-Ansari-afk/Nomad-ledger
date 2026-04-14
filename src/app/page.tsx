@@ -3,14 +3,15 @@ import Script from 'next/script'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'NomadLedger | Multi-Currency Finance & Tax Tool for Freelancers',
+  title: 'NomadLedger — Invoicing Software for Digital Nomads | Multi-Currency Invoice App',
   description:
-    'Stop losing money to exchange rates. NomadLedger automates currency conversion and tax estimates for digital nomads managing multiple international clients.',
+    'Invoice clients in GBP, EUR, USD from India. NomadLedger locks your exchange rate at invoice date — no more fluctuating income. Free tax estimate for 12 countries. Start free, no card needed.',
 }
 
 export default function LandingPage() {
   return (
     <>
+      {/* SoftwareApplication Schema */}
       <Script
         id="schema-software-app"
         type="application/ld+json"
@@ -20,7 +21,7 @@ export default function LandingPage() {
             "@type": "SoftwareApplication",
             "name": "NomadLedger",
             "url": "https://nomadledger.online",
-            "description": "Multi-currency invoicing and tax estimation tool for digital nomads. Invoice clients in GBP, EUR, USD — see everything in your home currency at the exact rate it was earned.",
+            "description": "Invoicing software for digital nomads. Invoice clients in GBP, EUR, USD — see everything in your home currency at the exact rate it was earned. Free tax estimate for 12 countries.",
             "applicationCategory": "FinanceApplication",
             "operatingSystem": "Web, iOS, Android",
             "offers": {
@@ -67,6 +68,61 @@ export default function LandingPage() {
           })
         }}
       />
+
+      {/* FAQPage Schema */}
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is the best invoicing software for digital nomads in India?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "NomadLedger is built specifically for Indian digital nomads billing international clients. It locks your exchange rate at invoice creation using ECB historical data, calculates Indian income tax live, and integrates Razorpay payment links on every invoice."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I invoice international clients in GBP, EUR, or USD from India?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Create a client in NomadLedger, set their billing currency, and raise an invoice. The app fetches the ECB rate for that date, converts to INR, and locks both values permanently. Your client receives a professional PDF with a Razorpay payment link."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does NomadLedger work for freelancers outside India?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. NomadLedger supports home currencies for 12 countries including India (INR), UK (GBP), US (USD), Germany (EUR), Portugal (EUR), Australia (AUD), Canada (CAD), Singapore (SGD), and more."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is send-date FX locking and why does it matter for my taxes?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Send-date FX locking means your invoice's home-currency value is calculated using the exchange rate on the day you created the invoice — and never changes after that. This is the method required by India's Income Tax Act, the IRS (Publication 54), and HMRC for reporting foreign income."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is there a free freelancer tax calculator for Indian digital nomads?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "NomadLedger includes a free progressive tax bracket calculator for India and 11 other countries. As you add invoices and log deductible expenses, your estimated tax liability updates live. The free tier is available with no credit card required."
+                }
+              }
+            ]
+          })
+        }}
+      />
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 
@@ -150,7 +206,7 @@ export default function LandingPage() {
         }
         .lp-h1 {
           font-family: 'Instrument Serif', Georgia, serif;
-          font-size: clamp(52px, 8vw, 96px);
+          font-size: clamp(44px, 7vw, 88px);
           font-weight: 400; line-height: 1.02; letter-spacing: -0.02em;
           margin-bottom: 28px; max-width: 900px;
         }
@@ -158,7 +214,7 @@ export default function LandingPage() {
         .lp-h1 .dim { color: #3d5a6e; }
         .lp-sub {
           font-size: clamp(16px, 2vw, 19px); font-weight: 350;
-          color: #a8bdd0; max-width: 520px; line-height: 1.8;
+          color: #a8bdd0; max-width: 560px; line-height: 1.8;
           margin: 0 auto 44px;
         }
         .lp-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
@@ -373,6 +429,33 @@ export default function LandingPage() {
         .lp-fx-locked-val { font-size: 26px; font-weight: 600; color: #f0f4f8; letter-spacing: -0.02em; margin-bottom: 4px; }
         .lp-fx-locked-rate { font-size: 13px; color: #5a7a91; }
 
+        /* FAQ */
+        .lp-faq {
+          padding: 100px 24px; background: #0d1220; position: relative; z-index: 1;
+        }
+        .lp-faq-inner { max-width: 720px; margin: 0 auto; }
+        .lp-faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; }
+        .lp-faq-item {
+          background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 16px; overflow: hidden; transition: border-color 0.2s;
+        }
+        .lp-faq-item:hover { border-color: rgba(79,163,232,0.25); }
+        .lp-faq-item summary {
+          padding: 20px 24px; font-size: 15px; font-weight: 500; color: #f0f4f8;
+          cursor: pointer; list-style: none; display: flex; justify-content: space-between;
+          align-items: center; gap: 16px; user-select: none;
+        }
+        .lp-faq-item summary::-webkit-details-marker { display: none; }
+        .lp-faq-item summary::after {
+          content: '+'; color: #4fa3e8; font-size: 20px; font-weight: 300; flex-shrink: 0; transition: transform 0.2s;
+        }
+        .lp-faq-item[open] summary::after { transform: rotate(45deg); }
+        .lp-faq-item p {
+          padding: 0 24px 20px; font-size: 14px; color: #5a7a91; line-height: 1.8; margin: 0;
+        }
+        .lp-faq-item a { color: #4fa3e8; text-decoration: none; }
+        .lp-faq-item a:hover { text-decoration: underline; }
+
         /* CTA */
         .lp-cta {
           padding: 120px 24px; text-align: center; position: relative; z-index: 1; overflow: hidden;
@@ -384,9 +467,9 @@ export default function LandingPage() {
         }
         .lp-cta-h2 {
           font-family: 'Instrument Serif', Georgia, serif;
-          font-size: clamp(44px, 7vw, 88px);
-          font-weight: 400; line-height: 1.03; letter-spacing: -0.025em;
-          margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto;
+          font-size: clamp(36px, 6vw, 72px);
+          font-weight: 400; line-height: 1.06; letter-spacing: -0.025em;
+          margin-bottom: 20px; max-width: 760px; margin-left: auto; margin-right: auto;
         }
         .lp-cta-h2 em { font-style: italic; color: #7ec8fc; }
         .lp-cta-sub { font-size: 17px; color: #a8bdd0; margin-bottom: 40px; }
@@ -400,6 +483,9 @@ export default function LandingPage() {
         .lp-footer-logo { font-family: 'Instrument Serif', Georgia, serif; font-size: 17px; color: #a8bdd0; }
         .lp-footer-logo em { color: #4fa3e8; font-style: italic; }
         .lp-footer-copy { font-size: 12px; color: #3d5a6e; }
+        .lp-footer-links { display: flex; gap: 20px; }
+        .lp-footer-links a { font-size: 12px; color: #5a7a91; text-decoration: none; }
+        .lp-footer-links a:hover { color: #a8bdd0; }
 
         /* SEO FEATURE SECTIONS */
         .lp-feat-section { margin-bottom: 80px; }
@@ -426,6 +512,15 @@ export default function LandingPage() {
           display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px;
         }
 
+        /* ECB LINK */
+        .lp-ecb-link {
+          display: inline-flex; align-items: center; gap: 6px;
+          font-size: 12px; color: #4fa3e8; text-decoration: none;
+          border-bottom: 1px dashed rgba(79,163,232,0.4);
+          transition: border-color 0.2s;
+        }
+        .lp-ecb-link:hover { border-color: rgba(79,163,232,0.8); }
+
         /* RESPONSIVE */
         @media (max-width: 900px) {
           .lp-pain-grid { grid-template-columns: 1fr; }
@@ -437,14 +532,14 @@ export default function LandingPage() {
         }
         @media (max-width: 600px) {
           .lp-hero { padding: 100px 20px 60px; }
-          .lp-pain, .lp-features, .lp-fx, .lp-cta { padding: 72px 20px; }
+          .lp-pain, .lp-features, .lp-fx, .lp-cta, .lp-video, .lp-faq { padding: 72px 20px; }
         }
       `}</style>
 
       <div className="lp-root">
 
         {/* NAV */}
-        <nav className="lp-nav">
+        <nav className="lp-nav" aria-label="Main navigation">
           <a href="/" className="lp-logo">Nomad<em>Ledger</em></a>
           <div className="lp-nav-right">
             <Link href="/login" className="lp-btn-ghost">Sign in</Link>
@@ -453,30 +548,33 @@ export default function LandingPage() {
         </nav>
 
         {/* HERO */}
-        <section className="lp-hero">
+        <section className="lp-hero" aria-labelledby="hero-heading">
           <div className="lp-hero-glow" />
           <p className="lp-eyebrow">
             <span className="lp-eyebrow-dot" />
-            Multi-currency freelance finance
+            Invoicing software for digital nomads
           </p>
-          <h1 className="lp-h1">
-            Multi-Currency Finance Tool for{' '}
-            <span className="accent">Digital Nomads</span>
-            {' '}& <span className="dim">Freelancers</span>
+
+          {/* H1 — Primary keyword: "Invoicing Software Built for Digital Nomads" */}
+          <h1 id="hero-heading" className="lp-h1">
+            The <span className="accent">Invoicing Software</span>{' '}
+            Built for{' '}<span className="dim">Digital Nomads</span>
           </h1>
+
           <p className="lp-sub">
-            Invoice clients in GBP, EUR, USD. See everything converted to your home currency — at the exact rate it was earned.
+            Bill clients in GBP, EUR, USD or INR. Your exchange rate is locked at the invoice send-date — permanently. No recalculations, no surprises, no more opening 3 tabs to figure out what you actually earned this month.
           </p>
           <div className="lp-hero-btns">
-            <Link href="/signup" className="lp-btn-primary">
-              Get started free
+            <Link href="/signup" className="lp-btn-primary" id="hero-cta-signup">
+              Get started free — no card needed
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </Link>
-            <a href="#features" className="lp-btn-outline">See how it works</a>
+            <a href="#features" className="lp-btn-outline" id="hero-see-how">See how it works</a>
           </div>
 
+          {/* Live Dashboard Preview Card */}
           <div className="lp-card-wrap">
-            <div className="lp-card">
+            <div className="lp-card" role="img" aria-label="Live dashboard showing GBP EUR USD invoices converted to INR home currency for digital nomad using NomadLedger invoicing software">
               <div className="lp-card-pill"><span className="lp-pill-dot" />Live Dashboard</div>
               <div className="lp-inv-row">
                 <span className="lp-inv-client">Acem Corp</span>
@@ -520,25 +618,26 @@ export default function LandingPage() {
         </section>
 
         {/* TICKER */}
-        <div className="lp-ticker">
+        <div className="lp-ticker" aria-hidden="true">
           <div className="lp-ticker-track">
-            {['FX rate locked at invoice date','Progressive tax breakdown','12 tax jurisdictions','Razorpay payment links','GBP · EUR · USD · INR · SGD','Deductible expense tracking','PDF invoices in one click',
-              'FX rate locked at invoice date','Progressive tax breakdown','12 tax jurisdictions','Razorpay payment links','GBP · EUR · USD · INR · SGD','Deductible expense tracking','PDF invoices in one click'].map((t, i) => (
+            {['Invoicing software for digital nomads','FX rate locked at invoice date','Multi-currency invoice app','12 tax jurisdictions','Razorpay payment links','GBP · EUR · USD · INR · SGD','Free freelancer tax calculator','PDF invoices in one click',
+              'Invoicing software for digital nomads','FX rate locked at invoice date','Multi-currency invoice app','12 tax jurisdictions','Razorpay payment links','GBP · EUR · USD · INR · SGD','Free freelancer tax calculator','PDF invoices in one click'].map((t, i) => (
               <span key={i} className="lp-ticker-item"><span className="lp-ticker-dot" />{t}</span>
             ))}
           </div>
         </div>
 
-        {/* PAIN */}
-        <section className="lp-pain">
+        {/* PAIN — H2 with primary keyword */}
+        <section className="lp-pain" aria-labelledby="pain-heading">
           <div className="lp-section-inner">
             <div className="lp-label">The Problem</div>
-            <h2 className="lp-h2">Every tool <span className="dim">breaks</span><br />when you have clients<br />in 4 currencies.</h2>
+            {/* H2: Keyword in Heading 2 ✅ */}
+            <h2 id="pain-heading" className="lp-h2">Why Every Invoicing Tool <span className="dim">Breaks</span><br />When You Have Clients<br />in <span className="blue">4 Currencies.</span></h2>
             <div className="lp-pain-grid">
               {[
-                { icon: '💸', title: 'Rate recalculation', body: 'QuickBooks recalculates exchange rates daily. Your reported income fluctuates — even after the client paid weeks ago.', quote: '"My income looks different every time I open my accounting app."' },
-                { icon: '🌀', title: 'Tax jurisdiction chaos', body: 'Move from India to Portugal in May — your entire tax year breaks. No tool handles mid-year country changes.', quote: '"I paid taxes in two countries on the same income. Nobody warned me."' },
-                { icon: '📉', title: 'Invisible total income', body: '£2,500 + €3,000 + $2,500. What did you actually earn this month? No tool shows you one number.', quote: '"I open 3 tabs every payday just to figure out what I made."' },
+                { icon: '💸', title: 'Rate recalculation kills your books', body: 'QuickBooks, Wave, and FreshBooks recalculate exchange rates every time you open the app. An invoice you raised in January for £2,500 shows a different INR value in March — even though your client paid weeks ago. That is not accounting. That is a broken invoicing tool.', quote: '"My income looks different every time I open my accounting app."' },
+                { icon: '🌀', title: 'Moving countries breaks your tax year', body: 'No multi-currency finance tool handles mid-year country changes for digital nomads. Move from India to Portugal in May and your tax jurisdiction shifts — but your tool still calculates using January\'s rules. NomadLedger updates your progressive tax bracket live when you change your home country in Settings.', quote: '"I paid taxes in two countries on the same income. Nobody warned me."' },
+                { icon: '📉', title: 'No tool shows you one total', body: '£2,500 from a UK client. €3,000 from Germany. $2,500 from the US. What did you actually earn this month? No existing invoicing software for freelancers shows you a single home-currency total — until now.', quote: '"I open 3 tabs every payday just to figure out what I made."' },
               ].map(c => (
                 <div key={c.title} className="lp-pain-card">
                   <div className="lp-pain-icon">{c.icon}</div>
@@ -564,25 +663,30 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* FEATURES */}
-        <section className="lp-features" id="features">
+        {/* FEATURES — H2 with "Multi-Currency Invoice App" keyword */}
+        <section className="lp-features" id="features" aria-labelledby="features-heading">
           <div className="lp-section-inner">
             <div className="lp-label">Everything you need</div>
 
-            {/* SEO FEATURE SECTION 1 — H2: Automated USD, EUR, and GBP Conversion */}
+            {/* H2: "The Only Multi-Currency Invoice App That Locks Your Exchange Rate Forever" */}
+            <h2 id="features-heading" className="lp-h2" style={{ marginBottom: 56 }}>
+              The Only <span className="blue">Multi-Currency Invoice App</span><br />That Locks Your Exchange Rate Forever.
+            </h2>
+
+            {/* SEO FEATURE SECTION 1 */}
             <div className="lp-feat-section">
               <div className="lp-feat-section-header">
                 <div className="lp-feat-section-icon">💱</div>
                 <div>
-                  <h2 className="lp-feat-section-h2">Automated <em>USD, EUR, and GBP</em> Conversion</h2>
-                  <p className="lp-feat-section-desc">Every invoice locks the exchange rate at the moment it's sent — no manual calculations, no surprise fluctuations in your annual report.</p>
+                  <h3 className="lp-feat-section-h2">Invoice in <em>GBP, EUR, USD</em> — See Everything in INR</h3>
+                  <p className="lp-feat-section-desc">Every invoice locks the exchange rate at the moment it's sent using <a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html" target="_blank" rel="noopener noreferrer" className="lp-ecb-link">European Central Bank historical rates ↗</a> — no manual calculations, no surprise fluctuations in your annual report.</p>
                 </div>
               </div>
               <div className="lp-feat-cards-row">
                 {[
-                  { icon: '🔒', title: 'Rate locked at invoice date', desc: 'Send invoices in USD, EUR, GBP. The rate is captured at creation and never recalculated — your books stay accurate forever.' },
+                  { icon: '🔒', title: 'Rate locked at invoice date', desc: 'Send invoices in USD, EUR, GBP. The ECB rate is captured at creation and never recalculated — your books stay accurate forever.' },
                   { icon: '📊', title: 'Real-time conversion display', desc: 'See live home-currency equivalents for every client balance — updated each session from ECB historical rates.' },
-                  { icon: '📈', title: 'P&L in your currency', desc: 'All income, from every currency, normalized into your home currency for quarterly and annual reporting.' },
+                  { icon: '📈', title: 'P&L in your home currency', desc: 'All income, from every currency, normalized into your home currency for quarterly and annual reporting.' },
                 ].map(f => (
                   <div key={f.title} className="lp-feat-card">
                     <div className="lp-feat-icon" style={{ fontSize: 20 }}>{f.icon}</div>
@@ -593,13 +697,13 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* SEO FEATURE SECTION 2 — H2: Real-time Home-Country Tax Estimates */}
+            {/* SEO FEATURE SECTION 2 — Freelancer Tax Calculator */}
             <div className="lp-feat-section">
               <div className="lp-feat-section-header">
                 <div className="lp-feat-section-icon">🧮</div>
                 <div>
-                  <h2 className="lp-feat-section-h2"><em>Real-time</em> Home-Country Tax Estimates</h2>
-                  <p className="lp-feat-section-desc">Progressive tax brackets for 12 countries, calculated live as you earn — so you're never surprised at year-end.</p>
+                  <h3 className="lp-feat-section-h2"><em>Freelancer Tax Calculator</em> for 12 Countries — Updated Live</h3>
+                  <p className="lp-feat-section-desc">Progressive tax bracket breakdown for India, UK, US, Germany, Portugal, Australia, Canada and 5 more countries. As you add invoices and expenses, your estimated tax liability updates in real time. See your <Link href="/tax-calculator" className="lp-ecb-link">free tax calculator →</Link></p>
                 </div>
               </div>
               <div className="lp-feat-cards-row">
@@ -617,20 +721,20 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* SEO FEATURE SECTION 3 — H2: Manage 6+ International Clients in One Dashboard */}
+            {/* SEO FEATURE SECTION 3 — Razorpay + Clients */}
             <div className="lp-feat-section">
               <div className="lp-feat-section-header">
                 <div className="lp-feat-section-icon">🌍</div>
                 <div>
-                  <h2 className="lp-feat-section-h2">Manage <em>6+ International Clients</em> in One Dashboard</h2>
-                  <p className="lp-feat-section-desc">Stop juggling spreadsheets and browser tabs. Every client, invoice, and currency lives in a single, beautiful workspace.</p>
+                  <h3 className="lp-feat-section-h2">Manage <em>6–20 International Clients</em> in One Dashboard</h3>
+                  <p className="lp-feat-section-desc">Stop juggling spreadsheets and browser tabs. Every client, invoice, and currency lives in a single, beautiful workspace. Razorpay payment links on every invoice — clients pay by UPI, cards, or net banking.</p>
                 </div>
               </div>
               <div className="lp-feat-cards-row">
                 {[
-                  { icon: '⚡', title: 'Online payments via Razorpay', desc: 'Clients pay instantly via UPI, cards, or net banking. Payment links are embedded in every invoice automatically.' },
-                  { icon: '📄', title: 'Professional PDF invoices', desc: 'Beautiful PDF invoices with rate, currency breakdown, and payment link baked in — one click.' },
-                  { icon: '👥', title: 'Multi-client overview', desc: 'Total earned per client, outstanding balances, and overdue alerts — all visible at a glance across 6, 10, or 20 clients.' },
+                  { icon: '⚡', title: 'Razorpay payment links on every invoice', desc: 'Clients pay instantly via UPI, cards, or net banking — the only invoicing software for Indian freelancers with built-in Razorpay integration.' },
+                  { icon: '📄', title: 'Professional PDF invoices', desc: 'Beautiful PDF invoices with rate, currency breakdown, and payment link baked in — one click, every time.' },
+                  { icon: '👥', title: 'Multi-client overview', desc: 'Total earned per client, outstanding balances, and overdue alerts — visible at a glance across 6, 10, or 20 clients.' },
                 ].map(f => (
                   <div key={f.title} className="lp-feat-card">
                     <div className="lp-feat-icon" style={{ fontSize: 20 }}>{f.icon}</div>
@@ -644,17 +748,38 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* FX CALLOUT */}
-        <section className="lp-fx">
+        {/* FX CALLOUT — H2 with "How FX Rate Locking Works" keyword */}
+        <section className="lp-fx" aria-labelledby="fx-heading">
           <div className="lp-fx-inner">
             <div>
               <div className="lp-label">Core technology</div>
-              <h2 className="lp-h2" style={{ marginBottom: 20 }}>Your rate.<br /><span className="blue">Locked forever.</span></h2>
-              <p style={{ fontSize: 17, color: '#a8bdd0', lineHeight: 1.75, marginBottom: 24 }}>
-                When you send an invoice for $3,000 on a day when 1 USD = ₹84, that ₹2,52,000 is locked to that invoice permanently — even if tomorrow&apos;s rate changes.
+              {/* H2: "How Our FX Rate Locking Works" */}
+              <h2 id="fx-heading" className="lp-h2" style={{ marginBottom: 20 }}>
+                How Our FX Rate Locking Works —<br /><span className="blue">Invoice Conversion Logic</span><br />Explained.
+              </h2>
+              <p style={{ fontSize: 16, color: '#a8bdd0', lineHeight: 1.8, marginBottom: 20 }}>
+                Most multi-currency invoicing tools recalculate exchange rates every time you open an invoice. NomadLedger does the opposite.
+              </p>
+              <p style={{ fontSize: 16, color: '#a8bdd0', lineHeight: 1.8, marginBottom: 24 }}>
+                When you send an invoice for $3,000 on a day when 1 USD = ₹84.00, we fetch that rate from the{' '}
+                <a
+                  href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="lp-ecb-link"
+                >
+                  European Central Bank&apos;s historical data ↗
+                </a>{' '}
+                and write it to a permanent column on your invoice. That ₹2,52,000 is locked forever.
               </p>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {['Rate captured at invoice creation, never recalculated','Full audit trail: rate date, from/to currency, locked value','Home equivalent visible on every invoice line','Free ECB historical data — always accurate'].map(pt => (
+                {[
+                  'Rate captured at invoice creation — never recalculated after',
+                  'Full audit trail: rate date, from/to currency, locked home-currency value',
+                  'Shown on every invoice line, the invoice list, and the dashboard total',
+                  'Free ECB historical data — no API key, no cost to you',
+                  'Works for GBP, EUR, USD, INR, SGD and 150+ other currencies',
+                ].map(pt => (
                   <li key={pt} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 14, color: '#a8bdd0', lineHeight: 1.6 }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4fa3e8', flexShrink: 0, marginTop: 7 }} />
                     {pt}
@@ -662,31 +787,91 @@ export default function LandingPage() {
                 ))}
               </ul>
             </div>
-            <div className="lp-fx-mockup">
+            <div
+              className="lp-fx-mockup"
+              role="img"
+              aria-label="Invoice INV-0024 showing USD to INR exchange rate locked at invoice date for freelancer billing international clients using NomadLedger multi-currency invoice app"
+            >
               <div className="lp-fx-inv-num">Invoice INV-0024</div>
               <div className="lp-fx-amount">$3,000.00 <span>USD</span></div>
               <div className="lp-fx-locked">
-                <div className="lp-fx-locked-tag">Rate Locked</div>
+                <div className="lp-fx-locked-tag">Rate Locked — Send-Date FX</div>
                 <div className="lp-fx-locked-val">₹2,52,000.00</div>
-                <div className="lp-fx-locked-rate">1 USD = ₹84.00 · Locked 1 Apr 2026</div>
+                <div className="lp-fx-locked-rate">1 USD = ₹84.00 · Locked 1 Apr 2026 · Will not change</div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="lp-cta">
+        {/* FAQ — with FAQ schema keywords ✅ */}
+        <section className="lp-faq" aria-labelledby="faq-heading">
+          <div className="lp-faq-inner">
+            <div className="lp-label">FAQ</div>
+            <h2 id="faq-heading" className="lp-h2" style={{ fontSize: 'clamp(30px, 4vw, 52px)' }}>
+              Frequently Asked Questions About<br /><span className="blue">Multi-Currency Invoicing</span> for Freelancers
+            </h2>
+            <div className="lp-faq-list">
+              {[
+                {
+                  q: 'What is the best invoicing software for digital nomads in India?',
+                  a: (<>NomadLedger is built specifically for Indian digital nomads billing international clients. It locks your exchange rate at invoice creation using ECB historical data, calculates your Indian income tax estimate live, and integrates Razorpay payment links on every invoice — so your clients can pay by UPI or card directly from the PDF. <Link href="/signup" className="lp-ecb-link">Start free →</Link></>),
+                },
+                {
+                  q: 'How do I invoice international clients in GBP, EUR, or USD from India?',
+                  a: 'Create a client profile in NomadLedger, set their billing currency (GBP, EUR, USD, or any other), and raise an invoice. The app fetches the exchange rate for that date from the ECB, converts the amount to INR, and locks both values permanently. Your client receives a professional PDF with a Razorpay payment link.',
+                },
+                {
+                  q: 'Does NomadLedger work for freelancers outside India?',
+                  a: 'Yes. NomadLedger supports home currencies for 12 countries including India (INR), UK (GBP), US (USD), Germany (EUR), Portugal (EUR), Australia (AUD), Canada (CAD), Singapore (SGD), and more. If you move countries mid-year, simply update your home country in Settings — your historical invoices keep their original locked rates.',
+                },
+                {
+                  q: 'What is send-date FX locking and why does it matter for my taxes?',
+                  a: 'Send-date FX locking means your invoice\'s home-currency value is calculated using the exchange rate on the day you created the invoice — and never changes after that. This is the method required by India\'s Income Tax Act, the IRS (Publication 54), and HMRC for reporting foreign income. It gives you a stable, auditable income figure for tax filing.',
+                },
+                {
+                  q: 'Is there a free freelancer tax calculator for Indian digital nomads?',
+                  a: (<>NomadLedger includes a free progressive tax bracket calculator for India and 11 other countries. As you add invoices and log deductible expenses, your estimated tax liability updates live. <Link href="/tax-calculator" className="lp-ecb-link">Try the free tax calculator →</Link></>),
+                },
+              ].map((item, i) => (
+                <details key={i} className="lp-faq-item">
+                  <summary>{item.q}</summary>
+                  <p>{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA — Updated with keyword-rich copy */}
+        <section className="lp-cta" aria-labelledby="cta-heading">
           <div className="lp-cta-glow" />
-          <h2 className="lp-cta-h2">Stop guessing.<br />Start <em>knowing.</em></h2>
-          <p className="lp-cta-sub">Join nomads who finally understand what they earn.</p>
-          <Link href="/signup" className="lp-btn-primary" style={{ fontSize: 16, padding: '16px 44px' }}>
-            Get started free →
+          <h2 id="cta-heading" className="lp-cta-h2">
+            The Invoicing Software Digital Nomads<br />Actually <em>Built Their Business On.</em>
+          </h2>
+          <p className="lp-cta-sub">Join freelancers in 40+ countries who finally know exactly what they earn — in their home currency, locked at the rate it was earned.</p>
+          <Link href="/signup" className="lp-btn-primary" style={{ fontSize: 16, padding: '16px 44px' }} id="cta-final-signup">
+            Start free — no credit card needed →
           </Link>
         </section>
+
+        {/* FREE TOOLS STRIP */}
+        <div style={{ background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '24px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          <p style={{ fontSize: 11, color: '#3d5a6e', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 600, marginBottom: 14 }}>Free tools for freelancers</p>
+          <div style={{ display: 'flex', gap: 32, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/tax-calculator" style={{ color: '#4fa3e8', fontSize: 14, textDecoration: 'none', fontWeight: 500 }}>Freelancer Tax Calculator</Link>
+            <Link href="/fx-history" style={{ color: '#4fa3e8', fontSize: 14, textDecoration: 'none', fontWeight: 500 }}>FX Rate History</Link>
+            <Link href="/invoice-converter" style={{ color: '#4fa3e8', fontSize: 14, textDecoration: 'none', fontWeight: 500 }}>Invoice Currency Converter</Link>
+          </div>
+        </div>
 
         {/* FOOTER */}
         <footer className="lp-footer">
           <div className="lp-footer-logo">Nomad<em>Ledger</em></div>
+          <div className="lp-footer-links">
+            <Link href="/tax-calculator">Tax Calculator</Link>
+            <Link href="/pricing">Pricing</Link>
+            <Link href="/signup">Start Free</Link>
+          </div>
           <div className="lp-footer-copy">© 2026 NomadLedger · Built for nomads, by nomads.</div>
         </footer>
 
